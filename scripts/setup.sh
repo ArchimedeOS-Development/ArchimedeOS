@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo mkarchiso -v -w ./work -o ./out .
+sudo mkarchiso -v -w ./work -o ./out ../iso/
