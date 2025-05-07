@@ -188,6 +188,10 @@ spectacle
 xdg-desktop-portal-kde
 xsettingsd
 
+#### ArchimedeOS repo #####
+aos-update
+calamares
+
 #### fonts ####
 noto-fonts
 noto-fonts-emoji
