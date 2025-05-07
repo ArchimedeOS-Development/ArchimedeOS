@@ -2,9 +2,9 @@
 # shellcheck disable=SC2034
 
 iso_name="archimede"
-iso_label="ARCHIMEDE_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+iso_label="ARCHIMEDEOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
 iso_publisher="ArchimedeOS <https://archimedeos.org>"
-iso_application="Arch Linux Live/Rescue DVD"
+iso_application="ArchimedeOS Live/Rescue DVD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')
@@ -22,8 +22,7 @@ file_permissions=(
   ["/root"]="0:0:750"
   ["/root/.automated_script.sh"]="0:0:755"
   ["/root/.gnupg"]="0:0:700"
-  ["/usr/local/bin/choose-mirror"]="0:0:755"
-  ["/usr/local/bin/Installation_guide"]="0:0:755"
-  ["/usr/local/bin/livecd-sound"]="0:0:755"
+  ["/etc/sudoers.d"]="0:0:750"
+  ["/etc/sudoers.d/g_wheel"]="0:0:440"
   ["/usr/local/bin/set-wallpaper"]="0:0:755"
 )
