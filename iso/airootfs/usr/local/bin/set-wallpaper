@@ -7,7 +7,6 @@ export DISPLAY=:0
 export XAUTHORITY=$USER_HOME/.Xauthority
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u $USER)/bus"
 
-# Attendre que D-Bus soit prêt
 for i in {1..10}; do
     if [ -S /run/user/$(id -u $USER)/bus ]; then
         break
@@ -15,6 +14,5 @@ for i in {1..10}; do
     sleep 1
 done
 
-# Appliquer le fond d'écran sans sudo
 /usr/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
 "var allDesktops = desktops();for (i=0;i<allDesktops.length;i++){d = allDesktops[i];d.wallpaperPlugin='org.kde.image';d.currentConfigGroup = Array('Wallpaper', 'org.kde.image', 'General');d.writeConfig('Image', 'file:///usr/share/backgrounds/archimede/archimede-wallpaper.png');}"
