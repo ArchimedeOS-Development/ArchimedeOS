@@ -189,6 +189,7 @@ xdg-desktop-portal-kde
 xsettingsd
 
 #### ArchimedeOS repo #####
+archimedeos-keyring
 aos-update
 calamares
 
