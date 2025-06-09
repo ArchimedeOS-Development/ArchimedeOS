@@ -24,5 +24,4 @@ file_permissions=(
   ["/root/.gnupg"]="0:0:700"
   ["/etc/sudoers.d"]="0:0:750"
   ["/etc/sudoers.d/g_wheel"]="0:0:440"
-  ["/usr/local/bin/set-wallpaper"]="0:0:755"
 )

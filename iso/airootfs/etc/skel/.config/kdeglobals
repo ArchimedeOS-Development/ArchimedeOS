@@ -1,0 +1,13 @@
+[General]
+ColorScheme=Breeze
+Name=Breeze
+widgetStyle=Breeze
+
+[KDE]
+SingleClick=false
+
+[Icons]
+Theme=breeze
+
+[KFileDialog Settings]
+Path=/home/liveuser 
