@@ -1,0 +1,15 @@
+[Unit]
+Description=ArchimedeOS Wallpaper Configuration
+After=display-manager.service
+Wants=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/archimedeos-setup-wallpaper
+RemainAfterExit=yes
+User=live
+Environment=HOME=/home/live
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=graphical.target

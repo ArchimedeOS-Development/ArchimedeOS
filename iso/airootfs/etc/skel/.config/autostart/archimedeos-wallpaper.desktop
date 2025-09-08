@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=ArchimedeOS Wallpaper Setup
+Name[fr]=Configuration fond d'écran ArchimedeOS
+Comment=Configure ArchimedeOS default wallpaper
+Comment[fr]=Configure le fond d'écran par défaut d'ArchimedeOS
+Exec=/usr/local/bin/archimedeos-setup-wallpaper
+Icon=preferences-desktop-wallpaper
+StartupNotify=false
+NoDisplay=true
+X-KDE-autostart-after=kded5
+OnlyShowIn=KDE;
