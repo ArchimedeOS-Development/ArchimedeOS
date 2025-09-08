@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Script pour configurer automatiquement le fond d'écran ArchimedeOS
+# Ce script sera exécuté lors du premier démarrage
+
+WALLPAPER_PATH="/usr/share/backgrounds/archimede/archimede-wallpaper.png"
+USER_HOME="$HOME"
+
+# Attendre que KDE soit complètement chargé
+sleep 5
+
+# Vérifier si le fichier de fond d'écran existe
+if [[ ! -f "$WALLPAPER_PATH" ]]; then
+    echo "Erreur: Le fond d'écran $WALLPAPER_PATH n'existe pas"
+    exit 1
+fi
+
+# Configurer le fond d'écran via DBus (méthode la plus fiable)
+if command -v qdbus &> /dev/null; then
+    # Essayer avec qdbus (Qt5)
+    qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+        var allDesktops = desktops();
+        for (i=0;i<allDesktops.length;i++) {
+            d = allDesktops[i];
+            d.wallpaperPlugin = 'org.kde.image';
+            d.currentConfigGroup = Array('Wallpaper', 'org.kde.image', 'General');
+            d.writeConfig('Image', 'file://$WALLPAPER_PATH');
+        }
+    " 2>/dev/null
+elif command -v qdbus-qt5 &> /dev/null; then
+    # Essayer avec qdbus-qt5
+    qdbus-qt5 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
+        var allDesktops = desktops();
+        for (i=0;i<allDesktops.length;i++) {
+            d = allDesktops[i];
+            d.wallpaperPlugin = 'org.kde.image';
+            d.currentConfigGroup = Array('Wallpaper', 'org.kde.image', 'General');
+            d.writeConfig('Image', 'file://$WALLPAPER_PATH');
+        }
+    " 2>/dev/null
+fi
+
+# Alternative: utiliser kwriteconfig5 pour une configuration persistante
+if command -v kwriteconfig5 &> /dev/null; then
+    kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" --key "Image" "file://$WALLPAPER_PATH"
+    kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" --key "PreviewImage" "file://$WALLPAPER_PATH"
+fi
+
+echo "Fond d'écran ArchimedeOS configuré: $WALLPAPER_PATH"

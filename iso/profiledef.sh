@@ -24,4 +24,6 @@ file_permissions=(
   ["/root/.gnupg"]="0:0:700"
   ["/etc/sudoers.d"]="0:0:750"
   ["/etc/sudoers.d/g_wheel"]="0:0:440"
+  ["/usr/local/bin/archimedeos-setup-wallpaper"]="0:0:755"
+  ["/usr/local/bin/archimedeos-post-install-wallpaper"]="0:0:755"
 )

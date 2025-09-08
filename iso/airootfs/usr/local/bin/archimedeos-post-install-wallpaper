@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Script de post-installation pour configurer le fond d'écran ArchimedeOS
+# Peut être appelé depuis l'installateur ou manuellement
+
+WALLPAPER_PATH="/usr/share/backgrounds/archimede/archimede-wallpaper.png"
+TARGET_USER="${1:-live}"
+TARGET_HOME="/home/$TARGET_USER"
+
+echo "Configuration du fond d'écran ArchimedeOS pour l'utilisateur: $TARGET_USER"
+
+# Créer les répertoires de configuration KDE s'ils n'existent pas
+mkdir -p "$TARGET_HOME/.config/autostart"
+mkdir -p "$TARGET_HOME/.local/share/plasma"
+
+# Copier les fichiers de configuration
+if [[ -f "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc" ]]; then
+    cp "/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc" "$TARGET_HOME/.config/"
+fi
+
+if [[ -f "/etc/skel/.config/plasmarc" ]]; then
+    cp "/etc/skel/.config/plasmarc" "$TARGET_HOME/.config/"
+fi
+
+if [[ -f "/etc/skel/.config/kdeglobals" ]]; then
+    cp "/etc/skel/.config/kdeglobals" "$TARGET_HOME/.config/"
+fi
+
+if [[ -f "/etc/skel/.config/kwinrc" ]]; then
+    cp "/etc/skel/.config/kwinrc" "$TARGET_HOME/.config/"
+fi
+
+if [[ -f "/etc/skel/.config/autostart/archimedeos-wallpaper.desktop" ]]; then
+    cp "/etc/skel/.config/autostart/archimedeos-wallpaper.desktop" "$TARGET_HOME/.config/autostart/"
+fi
+
+# Ajuster les permissions
+chown -R "$TARGET_USER:$TARGET_USER" "$TARGET_HOME/.config"
+
+# Configurer le fond d'écran directement si possible
+if [[ -f "$WALLPAPER_PATH" ]]; then
+    # Utiliser kwriteconfig5 si disponible
+    if command -v kwriteconfig5 &> /dev/null; then
+        sudo -u "$TARGET_USER" kwriteconfig5 --file "$TARGET_HOME/.config/plasma-org.kde.plasma.desktop-appletsrc" --group "Containments" --group "1" --group "Wallpaper" --group "org.kde.image" --group "General" --key "Image" "file://$WALLPAPER_PATH"
+    fi
+    
+    echo "Fond d'écran configuré: $WALLPAPER_PATH"
+else
+    echo "Attention: Le fichier de fond d'écran $WALLPAPER_PATH n'existe pas"
+fi
+
+echo "Configuration terminée pour l'utilisateur $TARGET_USER"
