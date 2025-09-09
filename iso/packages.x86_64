@@ -1,3 +1,7 @@
+#### base ####
+archlinux-keyring
+archimedeos-keyring
+
 #### basic packages ####
 alsa-utils
 arch-install-scripts
@@ -187,9 +191,6 @@ sddm-kcm
 spectacle
 xdg-desktop-portal-kde
 xsettingsd
-
-#### ArchimedeOS repo #####
-archimedeos-keyring
 
 #### Chaotic AUR ####
 chaotic-keyring
