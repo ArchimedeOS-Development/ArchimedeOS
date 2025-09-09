@@ -27,9 +27,9 @@ ISO_DIR="../iso"
 echo "Nettoyage des répertoires de travail..."
 rm -rf "$WORK_DIR" "$OUTPUT_DIR"
 
-# Création de l'ISO
+# Création de l'ISO avec mkarchiso modifié
 echo "Début de la construction de l'ISO..."
-if mkarchiso -v -w "$WORK_DIR" -o "$OUTPUT_DIR" "$ISO_DIR"; then
+if "$ISO_DIR/mkarchiso" -v -w "$WORK_DIR" -o "$OUTPUT_DIR" "$ISO_DIR"; then
     echo "Construction de l'ISO terminée avec succès !"
     echo "L'image ISO se trouve dans le répertoire: $OUTPUT_DIR"
 else
